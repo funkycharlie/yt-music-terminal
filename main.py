@@ -7,10 +7,9 @@ import json
 import curses
 from curses import wrapper
 from curses.textpad import Textbox
+from home import home
 
 
-
-# YT OAuth Workflow
 if not os.path.exists("oauth.json"):
     print("""Hi there, looks like it's your first time, or your log in expired.
 You'll be redirected to Google's website to log in, and then we can get started!""")
@@ -22,15 +21,27 @@ You'll be redirected to Google's website to log in, and then we can get started!
         sys.exit()
 
 
+def print_center(window, text):
+    window.clear()
+    h, w = window.getmaxyx()
+    x = w//2 - len(text)//2
+    y = h//2
+    window.addstr(y, x, text, curses.color_pair(2))
+    window.refresh()
+
+
 def main(window):
 
-    # Init de YT Music
     yt = YTMusic("oauth.json")
 
-    # Init de curses
     curses.noecho()
     curses.cbreak()
     window.keypad(True)
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
+    curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_RED)
+    color_pairs = (curses.color_pair(1),
+                   curses.color_pair(2))
+    window.bkgd(' ', curses.color_pair(2) | curses.A_BOLD)
 
     def get_user_details():
         try:
@@ -42,7 +53,7 @@ def main(window):
             text = "I don't think we've met. What's your name?"
             x = w // 2 - len(text) // 2
             y = h // 2
-            window.addstr(y, x, text, curses.A_STANDOUT)
+            window.addstr(y, x, text, curses.color_pair(2))
             namewin = curses.newwin(1, len(text), y + 4, x)
             window.refresh()
             box = Textbox(namewin)
@@ -54,6 +65,9 @@ def main(window):
         return user_data
 
     user_data = get_user_details()
+    print_center(window, f"Hey there, {user_data['name']}! Ready for some music?")
+    time.sleep(2)
+    home(window, user_data, color_pairs)
 
 
 wrapper(main)
