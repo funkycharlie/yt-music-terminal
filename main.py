@@ -36,6 +36,7 @@ def main(window):
 
     curses.noecho()
     curses.cbreak()
+    curses.curs_set(0)
     window.keypad(True)
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_RED)
@@ -67,7 +68,7 @@ def main(window):
     user_data = get_user_details()
     print_center(window, f"Hey there, {user_data['name']}! Ready for some music?")
     time.sleep(2)
-    home(window, user_data, color_pairs)
+    home(window, user_data, color_pairs, yt)
 
 
 wrapper(main)
