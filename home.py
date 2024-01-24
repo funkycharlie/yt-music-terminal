@@ -21,13 +21,14 @@ class NavButton():
         self.y = h - 1
         self.window.addstr(self.y, self.x, self.name)
 
-    def selected(self, buttons):
-        self.window.addstr(self.y, self.x, ' ' * self.length)
-        self.window.addstr(self.y, self.x, self.name, curses.A_STANDOUT)
-        self.selected = True
+    def select(self, buttons):
         for button in buttons:
             if button.selected:
                 button.deselect()
+        self.window.addstr(self.y, self.x, ' ' * self.length)
+        self.window.addstr(self.y, self.x, self.name, curses.A_STANDOUT)
+        self.selected = True
+        
     
     def deselect(self):
         self.window.addstr(self.y, self.x, ' ' * self.length)
@@ -44,7 +45,7 @@ def home(window, user_data, color_pairs, yt):
     buttons = [NavButton(window, len(nav), nav, id, navs, 20) for id, nav in enumerate(navs)]
 
     selected_button = buttons[0]
-    selected_button.selected(buttons)
+    selected_button.select(buttons)
 
     window.refresh()
 
