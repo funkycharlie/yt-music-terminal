@@ -70,5 +70,5 @@ def main(window):
     time.sleep(2)
     home(window, user_data, color_pairs, yt)
 
-
-wrapper(main)
+if __name__ == "__main__":
+    wrapper(main)

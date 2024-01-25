@@ -1,6 +1,7 @@
 from ytmusicapi import YTMusic
 import time
 import curses
+from explore import explore
 
 class NavButton():
     def __init__(self, window, length, name, place, navs, padding):
@@ -49,5 +50,9 @@ def home(window, user_data, color_pairs, yt):
 
     window.refresh()
 
-    window.getch()
+    input = window.getkey()
+    if input == "KEY_RIGHT":
+        selected_button = buttons[1]
+        selected_button.select(buttons)
+        explore()
 
