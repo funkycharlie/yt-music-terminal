@@ -1,7 +1,4 @@
-from ytmusicapi import YTMusic
-import time
 import curses
-from explore import explore
 
 class NavButton():
     def __init__(self, window, length, name, place, navs, padding):
@@ -35,24 +32,3 @@ class NavButton():
         self.window.addstr(self.y, self.x, ' ' * self.length)
         self.window.addstr(self.y, self.x, self.name)
         self.selected = False
-        
-
-def home(window, user_data, color_pairs, yt):
-
-    window.clear()
-
-    navs = ["Home", "Explore", "Search", "Library"]
-
-    buttons = [NavButton(window, len(nav), nav, id, navs, 20) for id, nav in enumerate(navs)]
-
-    selected_button = buttons[0]
-    selected_button.select(buttons)
-
-    window.refresh()
-
-    input = window.getkey()
-    if input == "KEY_RIGHT":
-        selected_button = buttons[1]
-        selected_button.select(buttons)
-        explore()
-

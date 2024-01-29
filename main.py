@@ -7,7 +7,7 @@ import json
 import curses
 from curses import wrapper
 from curses.textpad import Textbox
-from home import home
+from menu import home
 
 
 if not os.path.exists("oauth.json"):
