@@ -1,7 +1,7 @@
 from ytmusicapi import YTMusic
 import time
 import curses
-from home_ui import home_ui
+from home_ui import home_page
 
 global navs
 
@@ -48,7 +48,7 @@ def home(window, user_data, color_pairs, yt):
     selected_button.select(buttons)
 
     # This is where the code goes for the home ui
-    home_ui(yt, window)
+    home_page(yt, window)
     window.refresh()
 
     input_key = window.getkey()
