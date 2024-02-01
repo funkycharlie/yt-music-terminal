@@ -1,11 +1,15 @@
 from ytmusicapi import YTMusic
 import curses
+import time
 
 class Item:
     def __init__(self, item, output, window):
         self.title = item['title']
-        self.artists = [item['artists'][i]['name'] for i, artist in enumerate(item['artists'])]
-        
+        try:
+            self.artists = [item['artists'][i]['name'] for i, artist in enumerate(item['artists'])]
+        except KeyError:
+            self.artists = None
+
 
 class Category:
     def __init__(self, category, i, output, window):
