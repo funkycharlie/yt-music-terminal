@@ -1,17 +1,27 @@
 from ytmusicapi import YTMusic
 import curses
+import time
 
 class Item:
-    def __init__(self, item, output, window):
+    def __init__(self, y, item, output, window, j):
         self.title = item['title']
-        self.artists = [item['artists'][i]['name'] for i, artist in enumerate(item['artists'])]
+        self.length = len(self.title)
+        if self.length > 20:
+            
+        try:
+            self.artists = [item['artists'][i]['name'] for i, artist in enumerate(item['artists'])]
+        except KeyError:
+            self.artists = None
+        window.addstr(y+1, , self.title, curses.A_BOLD)
         
+
 
 class Category:
     def __init__(self, category, i, output, window):
+        self.y = 3*i
         self.title = category['title']
-        window.addstr(3*i, 5, self.title, curses.A_STANDOUT)
-        self.items = [Item(item, output, window) for j, item in enumerate(category['contents'])]
+        window.addstr(self.y, 5, self.title, curses.A_STANDOUT)
+        self.items = [Item(self.y, item, output, window, j) for j, item in enumerate(category['contents'])]
         
 
 
