@@ -6,13 +6,11 @@ class Item:
     def __init__(self, y, item, output, window, j):
         self.title = item['title']
         self.length = len(self.title)
-        if self.length > 20:
-            
         try:
             self.artists = [item['artists'][i]['name'] for i, artist in enumerate(item['artists'])]
         except KeyError:
             self.artists = None
-        window.addstr(y+1, , self.title, curses.A_BOLD)
+
         
 
 
@@ -28,7 +26,6 @@ class Category:
 def home_page(yt, window):
     output = yt.get_home()
     categories = [Category(category, i, output, window) for i, category in enumerate(output)]
-
 
 
 
